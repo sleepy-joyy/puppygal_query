@@ -1,24 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
+import useDogs from './hooks/useDogs';
 import './App.css';
+import Dogs from './components/Dogs';
 
 function App() {
+  const { dogs, refetchTrigger, setFetchTrigger, resetCache } = useDogs(3);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <button onClick={() => setFetchTrigger(refetchTrigger + 1)}>Refetch</button>
+        <button onClick={resetCache}>Reset Cache</button>
+      </div>
+      <div>{`API Calls : ${refetchTrigger}`}</div>
+      <Dogs dogs={dogs.dachshunds} />
+      <Dogs dogs={dogs.malteses} />
+      <Dogs dogs={dogs.terriers} />
     </div>
   );
 }
